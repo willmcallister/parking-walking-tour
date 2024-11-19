@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width">
+            <title></title>
+
+        <!--Custom stylesheet-->
+        <link rel="stylesheet" href="css/style.css">
+        <!--External stylesheets-->
+        <link rel="stylesheet" href="lib/leaflet/leaflet.css">
+        <link rel="stylesheet" href="lib/bootstrap.min.css">
+        <!--Google Fonts preloading-->
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+          <!--Selected Google Fonts-->
+          <link href="https://fonts.googleapis.com/css2?family=Jost:ital,wght@0,100..900;1,100..900&family=Quicksand:wght@300..700&display=swap" rel="stylesheet">
+
+    </head>
+    <body>
+        <!--Splash Screen. This will pop-up at the start of the tour.-->
+        <div class="modal" id="splash-modal">
+            <div class="modal-dialog" id="splash-dialogue">
+                <div class="modal-content" id="splash-content">
+                    <div class="modal-header">
+                        <div class="col-md-10 offset-md-1 col-sm-12 col-12" id="splash-title-container">
+                        </div>
+                    </div>
+                    <div class="modal-body col-md-10 offset-md-1 col-sm-12 col-12" id="splash-body">                       
+                        <!--Title of the tour.-->
+                        <h1 id="splash-title" class="modal-title">Shorewood Village Walking Tour</h1>
+                        <!--Add additional content here—photos, videos, text, etc.!-->
+                        <!--Introductory text of the tour.-->
+                        <p>Welcome to the Village of Shorewood, WI, located about 5 Miles North of Downtown Milwaukee. The Village of Shorewood has an optimal location for freshwater enthusiasts! The Village is bordered by two major bodies of water, the Milwaukee River and Lake Michigan, but unfortunately, that access comes at a cost. Pollution and flooding both present a problem in urban areas with numerous impervious surfaces. Therefore, the Village has adopted several practices to reduce the amount of pollution by runoff as well as managing stormwater issues. Stormwater is rain water that washes over the land collecting pollutants, trash, dog waste and chemicals. This can cause flooding, pollution, and erosion in areas surrounding natural bodies of water. Shorewood’s Water Walk showcases different practices implemented in the Village to combat and control excess stormwater by utilizing green infrastructure strategies. Let’s start our journey in Hubbard Park!</p>
+                        <!--Button to start the tour.-->
+                        <button type="button" id="start" class="btn btn-secondary" data-bs-dismiss="modal">Start Tour</button>
+                    </div>
+                </div>
+            </div>
+        </div>    
+
+        <!--Navigation bar-->
+        <nav class="tour-navbar navbar navbar-expand-lg">
+          <div class="container-fluid">
+          <!--Title of the tour-->
+            <a class="navbar-brand" href="#">Page Title</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon"></span>
+            </button>
+          <!--Navigation menu-->
+            <div class="collapse navbar-collapse" id="navbarNav">
+              <ul class="navbar-nav">
+              <!--About button (opens the splash screen)-->
+                <li class="nav-item">
+                  <a class="nav-link about" aria-current="page" href="#">About</a>
+                </li>
+              <!--Stops button—allows users to view all the stops of the tour-->
+                <li class="nav-item dropdown">
+                  <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    Stops
+                  </a>
+                  <ul class="dropdown-menu"></ul>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </nav>
+
+        <!--Template for a tour stop. When users tap a stop, this screen will popup, filled with content based on the selected stop.-->
+        <div class="modal" id="stop-modal">
+            <div class="modal-dialog" id="stop-dialogue">
+                <div class="modal-content" id="stop-content">
+                    <div class="modal-header">
+                        <div class="col-md-8 offset-md-2 col-sm-12 col-12" id="title-container">
+                            <!--This empty element will display with the title of the stop.-->
+                            <h1 class="modal-title" id="stop-title"></h1>
+                            <!--Button for playing a spoken version of the tour.-->
+                        </div>
+                        <!--Button to close the tour stop.-->
+                        <button type="button" id="x" class="btn-close close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <!--This element will hold the stop content, inlcuding the stop text and image.-->
+                    <div class="modal-body col-md-8 offset-md-2 col-sm-12 col-12" id="stop-body"></div>
+                    <!--The area at the bottom of the stop.-->
+                    <div id="stop-footer" class="modal-footer">
+                        <!--Button to return to the previous stop.-->
+                        <button type="button" id="prev" class="btn-secondary close" data-bs-dismiss="modal">Prev</button>
+                        <!--Button to advance to the next stop.-->
+                        <button type="button" id="next" class="btn-secondary close" data-bs-dismiss="modal">Next</button>
+                    </div>
+                </div>
+            </div>
+        </div>          
+        <!--Map Element-->
+        <!--Replace data-basemap and data-attribution with a parameters from Leaflet providers demo: https://leaflet-extras.github.io/leaflet-providers/preview/.-->
+        <div id="map" 
+            data-basemap="https://tile.openstreetmap.org/{z}/{x}/{y}.png"
+            data-attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'>
+            <div class="stop-menu"></div>
+        </div>
+        <!--Button to center a user's location on the map.-->
+        <button class="location-button">Where am I?</button>
+
+        <!--External scripts-->
+        <script type="text/javascript" src="lib/leaflet/leaflet.js"></script>
+        <script type="text/javascript" src="lib/papaparse.js"></script>
+        <script type="text/javascript" src="lib/bootstrap.bundle.min.js"></script>
+        <!--Custom scripts-->
+        <script type="text/javascript" src="js/main.js"></script>
+    </body>
+</html>
