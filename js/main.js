@@ -43,6 +43,7 @@
             zoom:16,
             maxZoom:18,
             minZoom:12,
+            bounceAtZoomLimits: false, // disables zoom bouncing at limits for mobile devices
             scrollWheelZoom: false, // disable original zoom function
             smoothWheelZoom: true,  // enable smooth zoom
             smoothSensitivity: 3   // zoom speed. default is 1
