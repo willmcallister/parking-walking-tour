@@ -9,7 +9,7 @@
     //splash screen modal variables
     let splash = document.getElementById('splash-modal'),
         splashModal = new bootstrap.Modal(splash);
-    splashModal.show();
+    //splashModal.show(); -- HIDES SPLASH SCREEN --
 
     //add listener for the about button
     document.querySelector(".about").addEventListener("click",function(){
@@ -42,16 +42,33 @@
             center:L.latLng(50.5, 30.5),
             zoom:16,
             maxZoom:18,
-            minZoom:12
+            minZoom:12,
+            scrollWheelZoom: false, // disable original zoom function
+            smoothWheelZoom: true,  // enable smooth zoom
+            smoothSensitivity: 3   // zoom speed. default is 1
         });
+
         let url = document.querySelector("#map").dataset.basemap,
             attribution = document.querySelector("#map").dataset.attribution;
 
+        /*
         //set basemap tileset
         let basemap = L.tileLayer(url, {
             maxZoom: 20,
             attribution: attribution
         }).addTo(map);
+        */
+
+        // adding pmtiles vector basemap (by using maplibre for leaflet)
+        var gl = L.maplibreGL({
+            style: '/lib/basemap/style.json' // changed url param in json to pull pmtiles local file
+        }).addTo(map);
+        
+        // required for local http request to work
+        let protocol = new pmtiles.Protocol({metadata: true});
+            maplibregl.addProtocol("pmtiles", protocol.tile);
+
+        map.scrollWheelZoom = true;
 
         //add location listenter to button
         document.querySelector(".location-button").addEventListener("click",getLocation)
