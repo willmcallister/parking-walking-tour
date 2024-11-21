@@ -61,7 +61,7 @@
 
         // adding pmtiles vector basemap (by using maplibre for leaflet)
         var gl = L.maplibreGL({
-            style: '/lib/basemap/style.json' // changed url param in json to pull pmtiles local file
+            style: 'lib/basemap/style.json' // changed url param in json to pull pmtiles local file
         }).addTo(map);
         
         // required for local http request to work
