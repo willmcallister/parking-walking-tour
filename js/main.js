@@ -49,27 +49,19 @@
             smoothSensitivity: 3   // zoom speed. default is 1
         });
 
-        let url = document.querySelector("#map").dataset.basemap,
-            attribution = document.querySelector("#map").dataset.attribution;
-
-        /*
-        //set basemap tileset
-        let basemap = L.tileLayer(url, {
-            maxZoom: 20,
-            attribution: attribution
-        }).addTo(map);
-        */
+        // attributing Protomaps and OSM
+        map.attributionControl.addAttribution('<a href=\"https://github.com/protomaps/basemaps\">Protomaps</a> |'
+            + ' <a href=\"https://openstreetmap.org\">OpenStreetMap</a>');
 
         // adding pmtiles vector basemap (by using maplibre for leaflet)
         var gl = L.maplibreGL({
             style: 'lib/basemap/style.json' // changed url param in json to pull pmtiles local file
         }).addTo(map);
         
-        // required for local http request to work
+        // required for local HTTP request to work
         let protocol = new pmtiles.Protocol({metadata: true});
             maplibregl.addProtocol("pmtiles", protocol.tile);
 
-        map.scrollWheelZoom = true;
 
         //add location listenter to button
         document.querySelector(".location-button").addEventListener("click",getLocation)
