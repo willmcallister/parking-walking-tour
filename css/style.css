@@ -102,6 +102,25 @@ button:hover{
 #start{
     margin:auto;
     display:block;
+    background-color: #996B0F;
+    font-weight: bold;
+}
+
+/* Map Directions Styling */
+.direction-text{
+    font-size: 1rem;
+    margin-bottom: 0px !important;
+}
+.close-direction-text{
+    text-align: center;
+    font-size: 0.875rem;
+    color: #4b4b4b;
+    font-style: italic;
+    font-weight: 500;
+    margin-top: 0.5rem !important;
+}
+.leaflet-popup-content-wrapper{
+    opacity: 0.95;
 }
 
 /*STOP CONTENT STYLING*/
