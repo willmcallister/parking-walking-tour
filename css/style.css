@@ -110,6 +110,9 @@ button:hover{
 #title-container{
     padding-left:10px;
 }
+#close-stop-button{
+    transform: translateX(-20px);
+}
 #stop-content{
     background:white; /*adjust background color of stop*/
     color:black; /*adjust font color of stop*/
