@@ -12,7 +12,7 @@
     //splashModal.show(); -- HIDES SPLASH SCREEN --
 
     //add listener for the about button
-    document.querySelector(".about").addEventListener("click",function(){
+    document.querySelector(".about").addEventListener("click", () => {
         splashModal.show();
     })
     //modal variables for stops
@@ -25,7 +25,7 @@
                 currentStop = currentStop + 1;
             }
             if (elem.id == "prev"){
-                currentStop = currentStop - 1 < 1 ? 1 :  currentStop - 1;
+                currentStop = currentStop - 1 < 1 ? 1 : currentStop - 1;
             }
             if (elem.id == "x"){
                 currentStop = currentStop;
@@ -65,6 +65,10 @@
 
         //add location listenter to button
         document.querySelector(".location-button").addEventListener("click",getLocation)
+        
+        // add parking lot data (hidden by default)
+        addParkingLots();
+        
         //add stop data
         addRoute();
         addStops();
@@ -166,11 +170,12 @@
                     obj.geometry = {
                         type: "Point",
                         coordinates: [Number(feature.lon), Number(feature.lat)]
-                    } 
+                    }
+                    
                     //add properties
                     obj.properties = feature;
                     //add object to geojson
-                    geojson.features.push(obj)
+                    geojson.features.push(obj);
                 })
                 //add geojson to map
                 stops = L.geoJson(geojson,{
@@ -191,12 +196,13 @@
                         //open modal if layer is not hidden
                         layer.on('click',function(){
                             if (feature.properties.hidden != "true"){
-                                openModal(feature.properties)                            }
+                                openModal(feature.properties);                       
+                            }
                         })
                         //center on first stop
                         if (feature.properties.id == 1){
-                            let coordinates = new L.LatLng(feature.geometry.coordinates[1],feature.geometry.coordinates[0])
-                            map.setView(coordinates)
+                            let coordinates = new L.LatLng(feature.geometry.coordinates[1],feature.geometry.coordinates[0]);
+                            map.setView(coordinates);
                         }
                         //add stops to stop menu
                         if (feature.properties.name){
@@ -242,6 +248,11 @@
             if (layer.feature.properties.id == currentStop){
                 let latlng = new L.LatLng(layer.feature.geometry.coordinates[1],layer.feature.geometry.coordinates[0]);
                 
+                if(currentStop == 4)
+                    showParkingLots();
+                else if (parkingLots && currentStop != 4) 
+                    hideParkingLots();
+
                 map.flyTo(latlng);
                 if (layer.feature.properties.direction){
                     var popup = L.popup()
@@ -343,6 +354,57 @@
         //set height and position  of map
         document.querySelector("#map").style.top = nav + "px";
         document.querySelector("#map").style.height = mapHeight + "px";
+    }
+
+    // add parking lots to map
+    function addParkingLots(){        
+        var geojsonMarkerOptions = {
+            radius: 8,
+            fillColor: "#ff7800",
+            color: "#000",
+            weight: 1,
+            opacity: 1,
+            fillOpacity: 0.8
+        };
+
+        fetch("assets/parking-lots.geojson")
+            .then(result => result.json())
+            .then(data => {
+                parkingLots = L.geoJson(data,{
+                    // style points
+                    pointToLayer: function (feature, latlng) {
+                        return L.circleMarker(latlng, geojsonMarkerOptions);
+                    },
+                    // style polygons
+                    style: {
+                        color: '#ebae34',
+                        opacity: 0.8,
+                        fillOpacity: 0.8
+                    }
+                }).addTo(map)
+
+                hideParkingLots(parkingLots);
+            });        
+    }
+
+    function hideParkingLots(lots = parkingLots){
+        if(lots){
+            lots.setStyle({
+                opacity: 0,
+                fillOpacity: 0
+            });
+            parkingVisible = false;
+        }
+    }
+
+    function showParkingLots(){
+        if(parkingLots){
+            parkingLots.setStyle({
+                opacity: 0.8,
+                fillOpacity: 0.8
+            });
+            parkingVisible = true;
+        }
     }
 
     window.addEventListener('resize',resizeMap)
