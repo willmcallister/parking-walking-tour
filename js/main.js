@@ -285,13 +285,46 @@
                 }
             })
         }
-        //add image if image exists
-        if (props.image){
-            let img = "<img src='img/" + props.image + "' id='stop-img'>"
-            document.querySelector("#stop-body").insertAdjacentHTML("beforeend",img)
+
+        // add image if image exists
+        // if multiple images, use '|' within data to place
+        // images, captions, and text in sequence
+        if(props.image && (props.image).includes("|")){
+            singleImage = false;
+            
+            const images = (props.image).split("|");
+            const captions = (props.caption).split("|");
+            const text = (props.text).split("|");
+
+            images.forEach((image, index) => {
+                // add image
+                document.querySelector("#stop-body")
+                    .insertAdjacentHTML("beforeend", "<img src='img/" 
+                        + image + "' id='stop-img'>");
+                // add caption
+                document.querySelector("#stop-body").insertAdjacentHTML("beforeend", 
+                    "<p class='stop-caption'>" + captions[index] + "</p>");
+                // add body text if it exists
+                if(text[index]){
+                    document.querySelector("#stop-body").insertAdjacentHTML("beforeend",
+                        "<p id='stop-text'>" + text[index] + "</p>");
+                }
+            });
         }
+        // if only one image
+        else if (props.image){
+            let img = "<img src='img/" + props.image + "' id='stop-img'>"
+            document.querySelector("#stop-body").insertAdjacentHTML("beforeend",img);
+        }
+        
+
+        // add image caption if it exists
+        if (props.caption && singleImage)
+            document.querySelector("#stop-body").insertAdjacentHTML("beforeend", 
+            "<p class='stop-caption'>" + props.caption + "</p>");
+
         //add body text if body text exists
-        if (props.text){
+        if (props.text && singleImage){
             let p = "<p id='stop-text'>" + props.text + "</p>";
             document.querySelector("#stop-body").insertAdjacentHTML("beforeend",p)
         }
