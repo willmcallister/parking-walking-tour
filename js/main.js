@@ -12,7 +12,36 @@
     //splash screen modal variables
     let splash = document.getElementById('splash-modal'),
         splashModal = new bootstrap.Modal(splash);
-    //splashModal.show(); -- HIDES SPLASH SCREEN --
+    
+    // -- DISPLAYS SPLASH SCREEN --
+    splashModal.show(); 
+
+    const controller = new AbortController();
+
+    // -- Changing content of about page --
+    // add listener for splash close button
+    document.querySelector(".splash-btn").addEventListener("click", (event) => {
+        // when starting splash is closed, change button text for use in about menu
+        // then remove event listener
+        event.target.innerHTML = "Back to Tour";
+        controller.abort(); // removes event listener
+
+        // change splash title
+        document.getElementById('splash-title').innerHTML = "About the Tour";
+
+        // change splash paragraph
+        document.getElementById("splash-paragraph").innerHTML = 
+            "This walking tour was created by Will McAllister for Geography 572 " +
+            "- Graphic Design in Cartography at the University of Wisconsin-Madison. " + 
+            "It would not have been possible without the work by <i>Gareth Baldrica-Franklin</i>  " +
+            "on the <a href='https://github.com/cartobaldrica/web-walking-tour'>Web Walking Tour Library</a><br><br>" +
+            "The website is hosted on Github Pages and uses Leaflet JS for the majority of the interface and MapLibre GL JS " +
+            "to render the vector tile basemap. The basemap itself is from Protomaps and uses OpenStreetMap data.<br><br>" +
+            "(Almost) all pictures were taken by myself and all narrations were recorded by me in the DFW airport. Sound effects are from Pixabay.";
+    }, {
+        // ties the controller to this event
+        signal: controller.signal
+    });
 
     //add listener for the about button
     document.querySelector(".about").addEventListener("click", () => {
