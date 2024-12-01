@@ -7,9 +7,10 @@ body{
 }
 
 /*FONT LOADING*/
-/*Update with selected Google Font*/
-body, .leaflet-popup-content{
-    font-family: "Quicksand", sans-serif !important;
+html, body, .leaflet-popup-content, .modal-body{
+    font-family: "rival-sans", sans-serif !important;
+    font-weight: 300;
+    font-style: normal;
 }
 
 /*BUTTON STYLING*/
