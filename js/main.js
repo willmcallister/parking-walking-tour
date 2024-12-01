@@ -4,8 +4,11 @@
 //check intersection between stop and location
 //create layout for popup at each stop (less important)
 
-(function(){
-    let map, route, stops, mapCenter, currentStop = 1, tourLength = 0, active = false, played = [],firstLocate = true, locationMarker, circle;
+(() => {
+    // removed global variables: tourLength = 0, firstLocate = true, 
+
+    let map, route, stops, mapCenter, currentStop = 1, active = false, played = [], 
+        locationMarker, circle, parkingLots, parkingVisible = false;
     //splash screen modal variables
     let splash = document.getElementById('splash-modal'),
         splashModal = new bootstrap.Modal(splash);
@@ -57,7 +60,7 @@
         var gl = L.maplibreGL({
             style: 'lib/basemap/style.json' // changed url param in json to pull pmtiles local file
         }).addTo(map);
-        
+
         // required for local HTTP request to work
         let protocol = new pmtiles.Protocol({metadata: true});
             maplibregl.addProtocol("pmtiles", protocol.tile);
@@ -80,7 +83,7 @@
     
         function onLocationFound(e){
             let radius = e.accuracy / 2;
-            console.log(e.accuracy)
+
             //removes marker and circle before adding a new one
             if (locationMarker){
                 map.removeLayer(circle);
@@ -113,7 +116,7 @@
     //add tour route to the map
     function addRoute(){
         fetch("assets/route.geojson")
-            .then(res => res.json())
+            .then(result => result.json())
             .then(data => {
                 route = L.geoJson(data,{
                     style:function(feature){
@@ -159,9 +162,6 @@
                 }
                 //populate geojson
                 data.forEach(function(feature, i){
-                    //add to total length
-                    if (feature.hidden == "FALSE")
-                        tourLength++;
                     //create empty object
                     let obj = {};
                     //set feature
@@ -281,7 +281,7 @@
             let button = "<button id='play-audio'>Play Audio</button>";
             document.querySelector("#title-container").insertAdjacentHTML("beforeend",button)
             document.querySelector("#play-audio").addEventListener("click",function(){
-                if (active == false){
+                if (!active){
                     playAudio(props.audio)
                     document.querySelector("#play-audio").innerHTML = "Stop Audio";
                 }
