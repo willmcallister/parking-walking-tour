@@ -1,5 +1,9 @@
 # East Campus Parking - Walking Tour
 
-Very under construction!
+Deployed here [Walking Tour](https://willmcallister.github.io/parking-walking-tour/)
 
-Deployed for testing [East Campus Parking Tour](https://willmcallister.github.io/East-Campus-Parking-Tour/)
+## Tech Used
+Leaflet JS
+MapLibre GL JS
+[Web Walking Tour Library](https://github.com/cartobaldrica/web-walking-tour)
+Protomaps
