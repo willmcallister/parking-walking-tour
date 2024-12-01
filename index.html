@@ -3,7 +3,7 @@
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width">
-            <title></title>
+            <title>Urban Parking Tour</title>
 
         <!--Custom stylesheet-->
         <link rel="stylesheet" href="css/style.css">
@@ -11,11 +11,9 @@
         <link rel="stylesheet" href="lib/leaflet/leaflet.css">
         <link rel="stylesheet" href="lib/bootstrap.min.css">
         <link rel="stylesheet" href="https://unpkg.com/maplibre-gl@4.7.0/dist/maplibre-gl.css" crossorigin="anonymous">
-        <!--Google Fonts preloading-->
-        <link rel="preconnect" href="https://fonts.googleapis.com">
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-          <!--Selected Google Fonts-->
-          <link href="https://fonts.googleapis.com/css2?family=Jost:ital,wght@0,100..900;1,100..900&family=Quicksand:wght@300..700&display=swap" rel="stylesheet">
+        
+        <!-- Rival Sans from Adobe Fonts -->
+        <link rel="stylesheet" href="https://use.typekit.net/szt5jwl.css">
 
     </head>
     <body>
@@ -29,12 +27,22 @@
                     </div>
                     <div class="modal-body col-md-10 offset-md-1 col-sm-12 col-12" id="splash-body">                       
                         <!--Title of the tour.-->
-                        <h1 id="splash-title" class="modal-title">Shorewood Village Walking Tour</h1>
+                        <h1 id="splash-title" class="modal-title">Urban Parking Walking Tour</h1>
                         <!--Add additional content here—photos, videos, text, etc.!-->
                         <!--Introductory text of the tour.-->
-                        <p>Welcome to the Village of Shorewood, WI, located about 5 Miles North of Downtown Milwaukee. The Village of Shorewood has an optimal location for freshwater enthusiasts! The Village is bordered by two major bodies of water, the Milwaukee River and Lake Michigan, but unfortunately, that access comes at a cost. Pollution and flooding both present a problem in urban areas with numerous impervious surfaces. Therefore, the Village has adopted several practices to reduce the amount of pollution by runoff as well as managing stormwater issues. Stormwater is rain water that washes over the land collecting pollutants, trash, dog waste and chemicals. This can cause flooding, pollution, and erosion in areas surrounding natural bodies of water. Shorewood’s Water Walk showcases different practices implemented in the Village to combat and control excess stormwater by utilizing green infrastructure strategies. Let’s start our journey in Hubbard Park!</p>
+                        <p id="splash-paragraph">
+                          Welcome to a walking tour of parking and the built
+                          environment! Today, you will explore six locations which 
+                          relate to parking in an urban setting. Some were previously 
+                          parking lots while some were buildings. All will ask you to 
+                          reflect on the tension between parking for personal vehicles 
+                          and urban spaces. We will begin our tour today in Alumni Park, 
+                          located right next to Memorial Union on the UW-Madison Campus.
+                          <br><br>Once you get to <b>Alumni Park</b>, tap the highlighted 
+                          circle.
+                        </p>
                         <!--Button to start the tour.-->
-                        <button type="button" id="start" class="btn btn-secondary" data-bs-dismiss="modal">Start Tour</button>
+                        <button type="button" id="start" class="btn btn-secondary splash-btn" data-bs-dismiss="modal">Start Tour</button>
                     </div>
                 </div>
             </div>
@@ -44,7 +52,7 @@
         <nav class="tour-navbar navbar navbar-expand-lg">
           <div class="container-fluid">
           <!--Title of the tour-->
-            <a class="navbar-brand" href="#">Page Title</a>
+            <a class="navbar-brand" href="#">Urban Parking Tour</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
               <span class="navbar-toggler-icon"></span>
             </button>
@@ -78,7 +86,7 @@
                             <!--Button for playing a spoken version of the tour.-->
                         </div>
                         <!--Button to close the tour stop.-->
-                        <button type="button" id="x" class="btn-close close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        <button type="button" id="close-stop-button" class="btn-close close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <!--This element will hold the stop content, inlcuding the stop text and image.-->
                     <div class="modal-body col-md-8 offset-md-2 col-sm-12 col-12" id="stop-body"></div>
