@@ -286,7 +286,8 @@
                 if (layer.feature.properties.direction){
                     var popup = L.popup()
                         .setLatLng(latlng)
-                        .setContent('<p>'+ layer.feature.properties.direction +'</p>')
+                        .setContent('<p class="direction-text">'+ layer.feature.properties.direction +'</p>' 
+                            + '<p class="close-direction-text">Tap map to close</p>')
                         .openOn(map);
                 }
             }
