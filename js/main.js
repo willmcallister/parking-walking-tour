@@ -264,8 +264,10 @@
         })
     }
     //open modal
-    function openModal(props){
+    function openModal(props){        
         currentStop = Number(props.id)
+        let singleImage = true;
+
         //clear body
         document.querySelector("#stop-body").innerHTML = "";
         document.querySelector("#title-container").innerHTML = "";
