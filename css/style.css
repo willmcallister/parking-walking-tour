@@ -131,6 +131,10 @@ button:hover{
 #stop-img{
     width:100%;
 }
+.stop-caption{
+    color: #707070;
+    font-style: italic;
+}
 #stop-text{
     margin-top:10px;
     font-size:20px;
