@@ -8,7 +8,7 @@
     // removed global variables: tourLength = 0, firstLocate = true, 
 
     let map, route, stops, mapCenter, currentStop = 1, active = false, played = [], 
-        locationMarker, circle, parkingLots, parkingVisible = false;
+        locationMarker, circle, parkingLots, parkingVisible = false, tourLength;
     //splash screen modal variables
     let splash = document.getElementById('splash-modal'),
         splashModal = new bootstrap.Modal(splash);
@@ -66,6 +66,7 @@
             updateRouteColor();
         })
     })
+
     //create map
     function createMap(){
         resizeMap();
@@ -191,6 +192,9 @@
                 }
                 //populate geojson
                 data.forEach(function(feature, i){
+                    // once data is loaded, tour length will be set
+                    tourLength = i + 1;
+                    
                     //create empty object
                     let obj = {};
                     //set feature
@@ -293,6 +297,7 @@
             }
         })
     }
+
     //open modal
     function openModal(props){        
         currentStop = Number(props.id)
@@ -317,6 +322,10 @@
                 }
             })
         }
+
+        // if stop is last stop, change 'Next' button to 'Finish'
+        if(currentStop == tourLength)
+            document.getElementById('next').innerHTML = "Finish";
 
         // add image if image exists
         // if multiple images, use '|' within data to place
@@ -361,7 +370,8 @@
             document.querySelector("#stop-body").insertAdjacentHTML("beforeend",p)
         }
         stopModal.show();
-}
+    }
+
     //play audio
     function playAudio(audioFile){
         active = true;
@@ -384,8 +394,6 @@
         //remove audio when finished
         audio.onended = function(){
             stopAudio();
-            //hide modal
-            stopModal.hide();
         }
         //add listener to stop audio if modal is closed
         document.querySelectorAll(".close").forEach(function(elem){
