@@ -323,9 +323,12 @@
             })
         }
 
-        // if stop is last stop, change 'Next' button to 'Finish'
+        // if stop is last stop, change 'Next' button to 'Finish', 
+        // else keep as/revert to 'Next'
         if(currentStop == tourLength)
             document.getElementById('next').innerHTML = "Finish";
+        else if (currentStop != tourLength && document.getElementById('next') != "Next")
+            document.getElementById('next').innerHTML = "Next"
 
         // add image if image exists
         // if multiple images, use '|' within data to place
